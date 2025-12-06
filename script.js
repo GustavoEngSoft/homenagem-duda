@@ -84,3 +84,22 @@ function createHeart() {
 // cria um coração novo a cada 250ms
 setInterval(createHeart, 250);
 
+
+// Pausar música quando qualquer áudio começar
+document.querySelectorAll("audio.timeline-audio").forEach(audio => {
+  audio.addEventListener("play", () => {
+    music.pause();
+  });
+
+  // Retomar música ao terminar o áudio
+  audio.addEventListener("ended", () => {
+    music.play();
+  });
+
+  // Se o usuário pausar manualmente, retoma também
+  audio.addEventListener("pause", () => {
+    // Só retoma se NÃO for o último segundo do áudio
+    if (!audio.ended) music.play();
+  });
+});
+
